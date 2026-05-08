@@ -1,0 +1,153 @@
+---
+import Base from '@/layouts/Base.astro';
+
+const title = "Domaine de séminaire en Bourgogne : Épinac | Epicentre";
+const description = "Lieu de séminaire privatisé en Bourgogne, à Épinac. 9 000 m² de parc, chapiteau cristal, plénière en plein air. Depuis Lyon, Paris, Dijon, Genève.";
+
+const hero = 'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=2400&q=85&auto=format&fit=crop';
+const parc = 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1600&q=85&auto=format&fit=crop';
+const chapiteau = 'https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=1600&q=85&auto=format&fit=crop';
+const chambre = 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1600&q=85&auto=format&fit=crop';
+---
+
+<Base title={title} description={description}>
+  <!-- HERO -->
+  <section class="relative h-[100vh] min-h-[600px] overflow-hidden bg-epinac-deep">
+    <img src={hero} alt="Domaine en Bourgogne pour séminaire d'entreprise à Épinac" class="absolute inset-0 w-full h-full object-cover opacity-65" />
+    <div class="absolute inset-0 bg-gradient-to-b from-epinac-deep/40 via-epinac-deep/20 to-epinac-deep"></div>
+
+    <div class="relative z-10 h-full container-wide flex flex-col justify-end pb-24 md:pb-32 text-bone">
+      <p class="eyebrow text-bone/70 mb-6">Épinac · Saône-et-Loire · Bourgogne</p>
+      <h1 class="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.95] max-w-5xl">
+        Un domaine.<br />Un parc de 9 000 m².<br /><em class="not-italic text-accent">Tout reste à imaginer.</em>
+      </h1>
+      <p class="text-bone/80 max-w-2xl mt-8 text-lg leading-relaxed">
+        Au centre d'Épinac, à l'écart de tout, un domaine privatisé pour les entreprises qui veulent sortir des cadres standard. Liberté créative totale sur 9 000 m² : chapiteau cristal, plénière en plein air, salle modulaire sous les arbres, dîner gala dans le parc.
+      </p>
+      <div class="mt-10 flex flex-wrap gap-4">
+        <a href="/contact/" class="btn-bone">Demander une visite</a>
+        <a href="/le-domaine/" class="btn-outline border-bone/40 text-bone hover:bg-bone hover:text-ink">Découvrir le lieu</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="py-28 bg-bone">
+    <div class="container-wide grid md:grid-cols-12 gap-10">
+      <div class="md:col-span-4">
+        <p class="eyebrow">Le lieu</p>
+        <h2 class="font-display text-4xl md:text-5xl mt-6 leading-tight">
+          À l'écart, mais à portée.
+        </h2>
+      </div>
+      <div class="md:col-span-7 md:col-start-6 space-y-6 text-lg leading-relaxed">
+        <p>
+          À <strong>Épinac, en Saône-et-Loire</strong>, un domaine familial partenaire offre un cadre rare pour les séminaires d'entreprise qui veulent vraiment <em>se mettre au vert</em>.
+        </p>
+        <p>
+          À 1h15 de Lyon, 1h de Dijon, 45 min de Beaune, 2h30 de Paris en TGV (gare du Creusot à 25 min), 2h45 de Genève. Vous quittez la ville sans la quitter trop longtemps.
+        </p>
+        <p>
+          Sur 9 000 m² de parc privatisé, le terrain est libre. Pas de salle prédéfinie qui vous oblige à entrer dans un format. <strong>Le format épouse votre projet</strong>, pas l'inverse.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIBERTÉ CRÉATIVE -->
+  <section class="bg-ink text-bone py-28">
+    <div class="container-wide">
+      <div class="max-w-3xl mb-16">
+        <p class="eyebrow text-bone/50">La liberté du parc</p>
+        <h2 class="font-display text-4xl md:text-5xl mt-6 leading-tight">
+          Tout ce qu'on peut imaginer sur 9 000 m².
+        </h2>
+        <p class="mt-6 text-bone/60 text-lg">
+          Le domaine n'est pas une salle. C'est un terrain de jeu. Les dispositifs s'inventent au cas par cas, selon votre format, votre saison, votre budget.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="relative aspect-[4/5] overflow-hidden">
+          <img src={chapiteau} alt="Chapiteau cristal pour plénière d'entreprise" class="absolute inset-0 w-full h-full object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-t from-ink to-transparent"></div>
+          <div class="absolute inset-0 p-8 flex flex-col justify-end">
+            <p class="eyebrow text-bone/60">Chapiteau cristal</p>
+            <h3 class="font-display text-3xl mt-3">Plénière transparente</h3>
+            <p class="mt-3 text-sm text-bone/70">Scène, son, lumière, captation. Jusqu'à 300 personnes en plénière, 250 en dîner gala. Vue ouverte sur le parc.</p>
+          </div>
+        </div>
+        <div class="relative aspect-[4/5] overflow-hidden">
+          <img src={parc} alt="Salle modulaire sous les arbres pour ateliers d'entreprise" class="absolute inset-0 w-full h-full object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-t from-ink to-transparent"></div>
+          <div class="absolute inset-0 p-8 flex flex-col justify-end">
+            <p class="eyebrow text-bone/60">Salle modulaire sous les arbres</p>
+            <h3 class="font-display text-3xl mt-3">Ateliers en plein air</h3>
+            <p class="mt-3 text-sm text-bone/70">Structure aménagée dans le parc, ouverte ou fermée selon météo. Pour vos sous-groupes, brainstorms, restitutions.</p>
+          </div>
+        </div>
+        <div class="relative aspect-[4/5] overflow-hidden">
+          <img src={chambre} alt="Hébergement et chambres d'hôtes" class="absolute inset-0 w-full h-full object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-t from-ink to-transparent"></div>
+          <div class="absolute inset-0 p-8 flex flex-col justify-end">
+            <p class="eyebrow text-bone/60">Hébergement</p>
+            <h3 class="font-display text-3xl mt-3">Chambres sur place</h3>
+            <p class="mt-3 text-sm text-bone/70">Plusieurs chambres au domaine, hôtels partenaires à Autun, Le Creusot, Beaune. Capacité totale modulable.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-16 max-w-3xl text-bone/70 text-lg leading-relaxed">
+        <p>
+          Au-delà du chapiteau cristal et de la salle sous les arbres : <strong>scène extérieure</strong>, <strong>dîner aux flambeaux dans le parc</strong>, <strong>cocktail au coucher du soleil</strong>, <strong>cinéma en plein air</strong>, <strong>concert privé</strong>, <strong>dégustation de vin animée par un sommelier</strong>. Tout dispositif sur-mesure que la créativité de votre projet permet.
+        </p>
+        <p class="mt-6">
+          C'est pour cette raison que le domaine attire les <strong>très belles entreprises</strong> : ici, on peut imaginer ce qu'aucun hôtel-séminaire standard ne peut offrir.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCÈS -->
+  <section class="py-28 bg-bone-soft">
+    <div class="container-wide grid md:grid-cols-12 gap-10 items-start">
+      <div class="md:col-span-5">
+        <p class="eyebrow">Accès</p>
+        <h2 class="font-display text-4xl md:text-5xl mt-6 leading-tight">
+          Bourgogne centrale, accès direct.
+        </h2>
+        <p class="mt-6 text-ink/70 leading-relaxed">
+          Épinac est idéalement placée sur l'axe Lyon ↔ Dijon, à l'écart de l'agitation mais à portée des grands axes. Pour Paris, la gare TGV Le Creusot Montchanin est à 25 minutes du domaine.
+        </p>
+      </div>
+      <div class="md:col-span-6 md:col-start-7 grid grid-cols-2 gap-4 text-ink">
+        {[
+          { v: '1h15', l: 'depuis Lyon' },
+          { v: '1h00', l: 'depuis Dijon' },
+          { v: '45 min', l: 'depuis Beaune' },
+          { v: '20 min', l: 'depuis Autun' },
+          { v: '2h30', l: 'depuis Paris (TGV)' },
+          { v: '2h45', l: 'depuis Genève' },
+        ].map((it) => (
+          <div class="bg-bone p-6 border border-ink/10">
+            <p class="font-display text-3xl">{it.v}</p>
+            <p class="text-xs text-ink/60 mt-1 uppercase tracking-wider">{it.l}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-epinac text-bone py-28">
+    <div class="container-wide text-center">
+      <h2 class="font-display text-4xl md:text-6xl max-w-3xl mx-auto leading-tight">
+        Et si on visitait le domaine ensemble ?
+      </h2>
+      <p class="mt-8 text-bone/80 max-w-xl mx-auto">
+        Pour un séminaire de 30, 100 ou 300 personnes, on cale une visite et un projet sur-mesure.
+      </p>
+      <a href="/contact/" class="btn-bone mt-10 inline-flex">Réserver une visite</a>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,68 @@
+---
+const items = [
+  {
+    q: 'Comment se construit votre devis ?',
+    a: 'Chaque mission est sur-mesure, jamais un pack. Après un échange de cadrage qui précise votre format, votre jauge, votre date et vos enjeux, le devis est livré ligne à ligne : équipement nommé, équipe identifiée, rétroplanning détaillé. Rien de flou. C\'est ce niveau de transparence qui permet ensuite de piloter une production sans dérive de budget.',
+  },
+  {
+    q: 'En quoi ça change d\'avoir une agence locale plutôt qu\'extérieure ?',
+    a: 'Trois différences concrètes. Réactivité : techniciens et prestataires du bassin mobilisables sans délai en cas d\'aléa. Connaissance terrain : on connaît les lieux, les contraintes des sites industriels du bassin (PIPA, halles, sites de production), les bonnes pratiques locales. Pas de frais de déplacement d\'une équipe extérieure à facturer. Pour une production exigeante, l\'ancrage local change tout en pilotage opérationnel.',
+  },
+  {
+    q: 'Pour quel type d\'événement êtes-vous pertinents ?',
+    a: 'Convention annuelle, séminaire d\'intégration, anniversaire d\'entreprise, lancement de produit ou de gamme, inauguration de site industriel, AG d\'actionnaires, gala interne ou remise de prix, congrès professionnel. Le périmètre est volontairement resserré sur la production technique d\'événements à enjeu. Pour du team building loisir ou des animations sans dispositif scénique, ce n\'est pas la bonne adresse.',
+  },
+  {
+    q: 'Vous intervenez sur un site industriel (PIPA, atrium, hall de production) ?',
+    a: 'Oui, c\'est l\'une des spécialités d\'Epicentre. Plan de prévention (PPSPS), EPI obligatoires, accueil sécurité des intermittents, alimentation électrique adaptée, accès poids lourds, coordination HSE en amont, montage de nuit ou le week-end pour ne pas arrêter la production. La culture technique vient des grandes scènes du sport et du spectacle, où ces contraintes sont équivalentes : le savoir-faire se transpose directement au cadre industriel.',
+  },
+  {
+    q: 'Quel délai pour bien préparer un événement avec vous ?',
+    a: 'Plus tôt vous prenez contact, plus large est la palette d\'options : choix des lieux disponibles, casting des prestataires, marges sur le rétroplanning, qualité du dispositif scénique. Pour les formats à fort enjeu (plénières grand format, lancements, conventions), un délai confortable change la qualité finale. Une demande urgente reste étudiable au cas par cas, sans engagement chiffré.',
+  },
+  {
+    q: 'Qui gère le traiteur, l\'hébergement, le transport ? Vous ou nous ?',
+    a: 'Si vous nous le confiez, c\'est Epicentre qui pilote l\'écosystème complet : traiteurs partenaires (du cocktail dînatoire au gala étoilé), hébergement, transports (navettes, bus dédiés), sécurité, photographe, animateurs. Vous avez un seul interlocuteur, l\'agence coordonne le reste. C\'est le service "Organisation" complet.',
+  },
+  {
+    q: 'À quoi sert la captation vidéo de votre événement ?',
+    a: 'Trois usages concrets. Diffusion live aux collaborateurs sur sites distants quand l\'événement réunit des équipes réparties. Archive corporate réutilisée plusieurs années (rapport annuel, communication interne, recrutement, presse). Teaser et contenus post-événement (lancement de produit, communication suite). Souvent rentabilisée en un seul réemploi quand le dispositif est pensé en amont.',
+  },
+  {
+    q: 'Et si le jour J, il y a un problème technique ?',
+    a: 'C\'est précisément ce contre quoi la culture de production live entraîne. Doublage des éléments critiques (alimentation, micros HF, captation), équipe sur place avec compétences croisées, plan B documenté pour chaque scénario d\'aléa, prestataires locaux mobilisables en complément. Et un seul pilote sur place, qui prend les décisions en temps réel. C\'est précisément à cela que sert un bureau d\'études en amont : anticiper pour ne pas avoir à improviser.',
+  },
+];
+---
+
+<section class="py-28 bg-bone-soft">
+  <div class="container-wide max-w-4xl">
+    <div class="mb-16">
+      <p class="eyebrow">Questions fréquentes</p>
+      <h2 class="text-4xl md:text-5xl mt-6">
+        Vos premières questions,<br />nos réponses directes.
+      </h2>
+    </div>
+
+    <div class="divide-y divide-ink/10 border-y border-ink/10">
+      {items.map((it, i) => (
+        <details class="group py-6 cursor-pointer" open={i === 0}>
+          <summary class="flex items-start justify-between gap-6 list-none">
+            <h3 class="text-lg md:text-xl font-semibold leading-snug">{it.q}</h3>
+            <span class="shrink-0 mt-1 text-ink/40 group-open:rotate-45 transition-transform duration-200">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <line x1="12" y1="5" x2="12" y2="19" stroke-linecap="round" />
+                <line x1="5" y1="12" x2="19" y2="12" stroke-linecap="round" />
+              </svg>
+            </span>
+          </summary>
+          <p class="mt-4 text-ink/70 leading-relaxed pr-12">{it.a}</p>
+        </details>
+      ))}
+    </div>
+
+    <p class="mt-12 text-ink/60 text-base text-center">
+      D'autres questions ? <a href="/contact/" class="underline underline-offset-4 hover:text-ink">Décrivez-nous votre projet</a>.
+    </p>
+  </div>
+</section>

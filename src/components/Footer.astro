@@ -1,0 +1,51 @@
+---
+import Logo from './Logo.astro';
+import LegalModals from './LegalModals.astro';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-ink text-bone/70 relative">
+  <div class="absolute top-0 left-0 right-0 h-px bg-forest-gradient"></div>
+
+  <div class="container-wide py-16 grid md:grid-cols-3 gap-10">
+    <div>
+      <Logo variant="light" height={64} />
+      <p class="mt-6 max-w-md text-sm leading-relaxed">
+        Lieu d'événement plein air en Bourgogne sud, à Épinac.
+        Galas, plénières sous chapiteau, soirées d'entreprise, réceptions privées.
+      </p>
+    </div>
+
+    <div>
+      <p class="eyebrow text-bone/50 mb-4">Épinac · Bourgogne</p>
+      <ul class="space-y-2 text-sm">
+        <li><a href="/" class="hover:text-bone">Accueil</a></li>
+        <li><a href="/le-domaine/" class="hover:text-bone">Visiter le lieu</a></li>
+        <li><a href="/productions/" class="hover:text-bone">Productions accueillies</a></li>
+        <li><a href="/contact/" class="hover:text-bone">Nous contacter</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="eyebrow text-bone/50 mb-4">Adresse</p>
+      <p class="text-sm leading-relaxed">
+        8 rue Jean Bouverie<br />
+        71360 Épinac<br />
+        Saône-et-Loire, France
+      </p>
+    </div>
+  </div>
+
+  <div class="border-t border-bone/10">
+    <div class="container-wide py-6 flex flex-col md:flex-row justify-between gap-4 text-xs text-bone/40">
+      <p>© {year} Epicentre · Domaine d'Épinac · Tous droits réservés</p>
+      <div class="flex gap-6">
+        <button type="button" data-open-dialog="dialog-legal" class="hover:text-bone underline-offset-2 hover:underline">Mentions légales</button>
+        <button type="button" data-open-dialog="dialog-privacy" class="hover:text-bone underline-offset-2 hover:underline">Confidentialité</button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<LegalModals />

@@ -1,0 +1,34 @@
+---
+import { getCollection } from 'astro:content';
+
+export interface Props {
+  currentSlug: string;
+  villes?: string[];
+}
+const { currentSlug, villes = [] } = Astro.props;
+
+const allLieux = await getCollection('lieux', (l) => l.id !== currentSlug);
+const villeSlugs = new Set(villes);
+const villesToShow = villes.length > 0
+  ? allLieux.filter((l) => villeSlugs.has(l.id))
+  : allLieux.slice(0, 4);
+---
+
+{villesToShow.length > 0 && (
+  <section class="bg-bone py-20 md:py-24 border-t border-ink/10">
+    <div class="container-wide max-w-3xl">
+      <p class="eyebrow">Aussi accessible depuis</p>
+      <h2 class="text-2xl md:text-3xl mt-4 leading-tight">Autres villes proches du domaine.</h2>
+      <ul class="mt-8 space-y-3">
+        {villesToShow.map((l) => (
+          <li>
+            <a href={`/${l.id}/`} class="group flex items-center justify-between border-b border-ink/10 pb-3 hover:border-ink transition-colors">
+              <span class="text-base md:text-lg font-medium">{l.data.ville}</span>
+              <span class="text-ink-muted group-hover:text-ink transition-colors" aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+)}

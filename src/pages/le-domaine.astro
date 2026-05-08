@@ -1,0 +1,88 @@
+---
+import Base from '@/layouts/Base.astro';
+
+const title = "Le domaine d'Épinac : Lieu de séminaire en Bourgogne | Epicentre";
+const description = "Le domaine d'Épinac, lieu de séminaire d'entreprise en Bourgogne : 9 000 m² de parc privatisé, chambres d'hôtes, chapiteau cristal pour plénière et gala.";
+
+const photos = [
+  'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=1600&q=85&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1505873242700-f289a29e1e0f?w=1600&q=85&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=1600&q=85&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1554189097-ffe88e998a2b?w=1600&q=85&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1530538095376-a4936b35b5f0?w=1600&q=85&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1530631673369-bc20fdb32288?w=1600&q=85&auto=format&fit=crop',
+];
+---
+
+<Base title={title} description={description}>
+  <section class="relative h-[60vh] min-h-[420px] overflow-hidden bg-epinac-deep">
+    <img src={photos[0]} alt="Domaine d'Épinac - vue d'ensemble" class="absolute inset-0 w-full h-full object-cover opacity-70" />
+    <div class="absolute inset-0 bg-gradient-to-b from-epinac-deep/30 to-epinac-deep"></div>
+    <div class="relative z-10 h-full container-wide flex flex-col justify-end pb-16 text-bone">
+      <p class="eyebrow text-bone/70 mb-4">Le domaine</p>
+      <h1 class="font-display text-4xl md:text-6xl max-w-4xl">Un lieu fait pour les grands moments d'entreprise.</h1>
+    </div>
+  </section>
+
+  <section class="py-24 bg-bone">
+    <div class="container-wide grid md:grid-cols-12 gap-10">
+      <div class="md:col-span-5">
+        <p class="eyebrow">Le projet</p>
+        <h2 class="font-display text-3xl md:text-4xl mt-6">
+          Un domaine familial, restauré pour vos séminaires.
+        </h2>
+      </div>
+      <div class="md:col-span-7 md:col-start-6 space-y-6 text-lg leading-relaxed">
+        <p>
+          Implanté en plein centre d'Épinac, le domaine combine plusieurs pièces de réception, des chambres d'hôtes, et un parc de 9 000 m² qui ouvre toutes les possibilités scénographiques : chapiteau cristal, scène extérieure, espaces ateliers, cocktail dînatoire en plein air.
+        </p>
+        <p>
+          C'est un lieu pensé pour les <strong>séminaires résidentiels d'entreprise</strong> qui veulent un cadre rare, un service personnalisé, et une production événementielle au niveau d'attente des plus grandes scènes.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-bone-soft py-24">
+    <div class="container-wide">
+      <div class="grid md:grid-cols-3 gap-4">
+        {photos.map((src, i) => (
+          <div class={`relative overflow-hidden ${i % 5 === 0 ? 'md:col-span-2 aspect-[16/10]' : 'aspect-[4/5]'}`}>
+            <img src={src} alt={`Photo ${i + 1} du domaine d'Épinac`} class="absolute inset-0 w-full h-full object-cover" />
+          </div>
+        ))}
+      </div>
+      <p class="text-center text-xs text-ink/40 mt-6 italic">Photos d'illustration. Le domaine est en cours de rénovation : les photos officielles seront publiées prochainement.</p>
+    </div>
+  </section>
+
+  <section class="py-24 bg-bone">
+    <div class="container-wide">
+      <div class="max-w-3xl">
+        <p class="eyebrow">Capacités</p>
+        <h2 class="font-display text-3xl md:text-4xl mt-6">Configurations possibles.</h2>
+      </div>
+      <div class="grid md:grid-cols-4 gap-6 mt-12">
+        {[
+          { l: 'Plénière sous chapiteau', v: 'jusqu\'à 300', s: 'configuration théâtre, scène, captation' },
+          { l: 'Dîner de gala', v: 'jusqu\'à 250', s: 'tables rondes, mise en lumière, scène' },
+          { l: 'Cocktail', v: 'jusqu\'à 400', s: 'parc, terrasse, intérieur' },
+          { l: 'Hébergement', v: 'sur place + alentours', s: 'chambres d\'hôtes du domaine + hôtels partenaires' },
+        ].map((c) => (
+          <div class="border border-ink/10 p-6">
+            <p class="eyebrow">{c.l}</p>
+            <p class="font-display text-2xl mt-3">{c.v}</p>
+            <p class="text-sm text-ink/60 mt-2">{c.s}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-epinac text-bone py-24">
+    <div class="container-wide text-center">
+      <h2 class="font-display text-4xl md:text-5xl">Envie d'imaginer votre événement ici ?</h2>
+      <a href="/contact/" class="btn-bone mt-10 inline-flex">Demander une visite</a>
+    </div>
+  </section>
+</Base>

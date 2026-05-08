@@ -1,0 +1,36 @@
+---
+export interface Props {
+  items: { q: string; a: string }[];
+  heading?: string;
+  eyebrow?: string;
+}
+const { items, heading = 'Questions fréquentes', eyebrow = 'FAQ' } = Astro.props;
+---
+
+{items && items.length > 0 && (
+  <section class="bg-bone-soft py-20 md:py-28">
+    <div class="container-wide max-w-4xl">
+      <div class="mb-12">
+        <p class="eyebrow">{eyebrow}</p>
+        <h2 class="text-3xl md:text-5xl mt-6 leading-tight">{heading}</h2>
+      </div>
+
+      <div class="divide-y divide-ink/10 border-y border-ink/10">
+        {items.map((it, i) => (
+          <details class="group py-6 cursor-pointer" open={i === 0}>
+            <summary class="flex items-start justify-between gap-6 list-none">
+              <h3 class="text-lg md:text-xl font-semibold leading-snug pr-4">{it.q}</h3>
+              <span class="shrink-0 mt-1 text-ink/40 group-open:rotate-45 transition-transform duration-200" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                  <line x1="12" y1="5" x2="12" y2="19" stroke-linecap="round" />
+                  <line x1="5" y1="12" x2="19" y2="12" stroke-linecap="round" />
+                </svg>
+              </span>
+            </summary>
+            <p class="mt-4 text-ink/70 leading-relaxed pr-12">{it.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+)}

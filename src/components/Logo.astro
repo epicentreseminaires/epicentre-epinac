@@ -1,0 +1,22 @@
+---
+export interface Props {
+  variant?: 'dark' | 'light';
+  class?: string;
+  height?: number;
+}
+const { variant = 'dark', class: className = '', height = 36 } = Astro.props;
+const src = variant === 'light'
+  ? '/images/logo-epicentre-white.png'
+  : '/images/logo-epicentre-black.png';
+---
+
+<a href="/" class={`inline-flex items-center ${className}`} aria-label="Epicentre Séminaires - Accueil">
+  <img
+    src={src}
+    alt="Epicentre Séminaires"
+    height={height}
+    style={`height: ${height}px; width: auto;`}
+    loading="eager"
+    decoding="async"
+  />
+</a>

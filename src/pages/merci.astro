@@ -1,0 +1,31 @@
+---
+import Base from '@/layouts/Base.astro';
+
+const title = "Merci pour votre demande | Epicentre Séminaires";
+const description = "Votre demande a bien été reçue. Nous reviendrons vers vous pour échanger sur votre projet.";
+---
+
+<Base title={title} description={description} zone="brand" noindex={true}>
+  <section class="bg-ink text-bone min-h-screen flex items-center">
+    <div class="container-wide text-center max-w-3xl mx-auto py-32">
+      <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-accent text-ink mb-12">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+
+      <p class="eyebrow text-bone/50">Demande envoyée</p>
+      <h1 class="display-lg mt-6">
+        Merci.<br /><span class="text-accent">Votre demande est bien arrivée.</span>
+      </h1>
+      <p class="mt-10 text-xl text-bone/70 max-w-xl mx-auto leading-relaxed">
+        Nous étudions votre projet et nous reviendrons vers vous pour en échanger. En attendant, vous pouvez parcourir notre journal pour découvrir notre approche.
+      </p>
+
+      <div class="mt-16 flex flex-wrap justify-center gap-4">
+        <a href="/" class="btn-bone">Retour à l'accueil</a>
+        <a href="/journal/" class="btn-outline border-bone/40 text-bone hover:bg-bone hover:text-ink">Lire notre journal</a>
+      </div>
+    </div>
+  </section>
+</Base>

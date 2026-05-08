@@ -1,0 +1,268 @@
+---
+// Composant signature : slider drag entre rendu 3D (modélisation amont) et photo
+// finale de l'événement. C'est le différenciateur visuel central d'Epicentre.
+// Si beforeImg ou afterImg ne sont pas fournis, on affiche un placeholder neutre
+// pour matérialiser la promesse en attendant les vrais visuels client.
+export interface Props {
+  beforeImg?: string;
+  afterImg?: string;
+  beforeLabel?: string;
+  afterLabel?: string;
+  caption?: string;
+  context?: string;
+}
+
+const {
+  beforeImg,
+  afterImg,
+  beforeLabel = 'Plan 3D · modélisation amont',
+  afterLabel = 'Photo finale · jour J',
+  caption,
+  context,
+} = Astro.props;
+
+// ID unique pour permettre plusieurs sliders par page
+const id = `ba-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<figure class="before-after" data-ba-id={id}>
+  {(caption || context) && (
+    <figcaption class="before-after__head">
+      {context && <p class="eyebrow text-ink/55">{context}</p>}
+      {caption && <p class="before-after__caption">{caption}</p>}
+    </figcaption>
+  )}
+
+  <div class="before-after__frame" id={id}>
+    <!-- Image AFTER (photo finale) en couche de fond -->
+    <div class="before-after__layer before-after__after">
+      {afterImg ? (
+        <img src={afterImg} alt={afterLabel} loading="lazy" />
+      ) : (
+        <div class="before-after__placeholder before-after__placeholder--after">
+          <span class="before-after__placeholder-label">{afterLabel}</span>
+        </div>
+      )}
+      <span class="before-after__layer-tag before-after__layer-tag--right">{afterLabel}</span>
+    </div>
+
+    <!-- Image BEFORE (plan 3D) en couche supérieure clippée -->
+    <div class="before-after__layer before-after__before" data-ba-clip>
+      {beforeImg ? (
+        <img src={beforeImg} alt={beforeLabel} loading="lazy" />
+      ) : (
+        <div class="before-after__placeholder before-after__placeholder--before">
+          <svg viewBox="0 0 200 200" class="before-after__grid" aria-hidden="true">
+            <defs>
+              <pattern id={`${id}-grid`} width="20" height="20" patternUnits="userSpaceOnUse">
+                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.4" />
+              </pattern>
+            </defs>
+            <rect width="200" height="200" fill={`url(#${id}-grid)`} />
+            <rect x="40" y="120" width="120" height="50" fill="none" stroke="currentColor" stroke-width="1" opacity="0.7" />
+            <line x1="40" y1="120" x2="100" y2="80" stroke="currentColor" stroke-width="1" opacity="0.7" />
+            <line x1="160" y1="120" x2="100" y2="80" stroke="currentColor" stroke-width="1" opacity="0.7" />
+            <line x1="40" y1="170" x2="100" y2="130" stroke="currentColor" stroke-width="1" opacity="0.5" stroke-dasharray="3 3" />
+            <line x1="160" y1="170" x2="100" y2="130" stroke="currentColor" stroke-width="1" opacity="0.5" stroke-dasharray="3 3" />
+          </svg>
+          <span class="before-after__placeholder-label">{beforeLabel}</span>
+        </div>
+      )}
+      <span class="before-after__layer-tag before-after__layer-tag--left">{beforeLabel}</span>
+    </div>
+
+    <!-- Poignée de drag -->
+    <div class="before-after__handle" data-ba-handle aria-hidden="true">
+      <div class="before-after__handle-line"></div>
+      <div class="before-after__handle-knob">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <polyline points="9 6 3 12 9 18" stroke-linecap="round" stroke-linejoin="round" />
+          <polyline points="15 6 21 12 15 18" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- Input range invisible pour l'accessibilité clavier -->
+    <input
+      type="range"
+      min="0"
+      max="100"
+      value="50"
+      class="before-after__input"
+      data-ba-input
+      aria-label="Faire glisser pour comparer le plan 3D et la photo finale"
+    />
+  </div>
+</figure>
+
+<style>
+  .before-after {
+    margin: 0;
+  }
+  .before-after__head {
+    margin-bottom: 1.25rem;
+  }
+  .before-after__caption {
+    margin-top: 0.5rem;
+    font-size: 1.125rem;
+    line-height: 1.4;
+    letter-spacing: -0.015em;
+    color: rgba(11, 11, 15, 0.85);
+  }
+  .before-after__frame {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    background: #EFEAE0;
+    cursor: ew-resize;
+    user-select: none;
+    border-radius: 2px;
+  }
+  .before-after__layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .before-after__layer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .before-after__before {
+    clip-path: inset(0 50% 0 0);
+    transition: clip-path 0.05s ease-out;
+  }
+  .before-after__placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .before-after__placeholder--before {
+    background: #0E3217;
+    color: rgba(245, 241, 234, 0.8);
+  }
+  .before-after__placeholder--after {
+    background: #1B2A4A;
+    color: rgba(245, 241, 234, 0.6);
+  }
+  .before-after__placeholder-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 500;
+    text-align: center;
+    padding: 0 1.5rem;
+  }
+  .before-after__grid {
+    width: 70%;
+    height: 70%;
+    max-width: 420px;
+    color: rgba(245, 241, 234, 0.5);
+  }
+  .before-after__layer-tag {
+    position: absolute;
+    bottom: 1rem;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 500;
+    color: #F5F1EA;
+    background: rgba(11, 11, 15, 0.55);
+    padding: 0.4rem 0.75rem;
+    backdrop-filter: blur(6px);
+  }
+  .before-after__layer-tag--left {
+    left: 1rem;
+  }
+  .before-after__layer-tag--right {
+    right: 1rem;
+  }
+  .before-after__handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+  .before-after__handle-line {
+    position: absolute;
+    inset: 0;
+    background: rgba(245, 241, 234, 0.85);
+    box-shadow: 0 0 12px rgba(11, 11, 15, 0.35);
+  }
+  .before-after__handle-knob {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 9999px;
+    background: #F5F1EA;
+    color: #0B0B0F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(11, 11, 15, 0.25);
+    pointer-events: auto;
+  }
+  .before-after__input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: ew-resize;
+    margin: 0;
+  }
+  .before-after__input:focus-visible + * {
+    outline: 2px solid #00491b;
+    outline-offset: 2px;
+  }
+</style>
+
+<script>
+  const frames = document.querySelectorAll<HTMLElement>('.before-after__frame');
+  frames.forEach((frame) => {
+    const before = frame.querySelector<HTMLElement>('[data-ba-clip]');
+    const handle = frame.querySelector<HTMLElement>('[data-ba-handle]');
+    const input = frame.querySelector<HTMLInputElement>('[data-ba-input]');
+    if (!before || !handle || !input) return;
+
+    const setPosition = (percent: number) => {
+      const p = Math.max(0, Math.min(100, percent));
+      before.style.clipPath = `inset(0 ${100 - p}% 0 0)`;
+      handle.style.left = `${p}%`;
+      input.value = String(p);
+    };
+
+    input.addEventListener('input', () => setPosition(parseFloat(input.value)));
+
+    let dragging = false;
+    const onPointerDown = (e: PointerEvent) => {
+      dragging = true;
+      frame.setPointerCapture(e.pointerId);
+      onPointerMove(e);
+    };
+    const onPointerMove = (e: PointerEvent) => {
+      if (!dragging && e.type !== 'pointerdown') return;
+      const rect = frame.getBoundingClientRect();
+      const percent = ((e.clientX - rect.left) / rect.width) * 100;
+      setPosition(percent);
+    };
+    const onPointerUp = () => { dragging = false; };
+
+    frame.addEventListener('pointerdown', onPointerDown);
+    frame.addEventListener('pointermove', onPointerMove);
+    frame.addEventListener('pointerup', onPointerUp);
+    frame.addEventListener('pointercancel', onPointerUp);
+  });
+</script>

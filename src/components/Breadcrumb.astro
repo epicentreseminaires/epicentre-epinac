@@ -1,0 +1,47 @@
+---
+export interface BreadcrumbItem {
+  name: string;
+  url?: string;
+}
+
+export interface Props {
+  items: BreadcrumbItem[];
+  variant?: 'light' | 'dark';
+}
+
+const { items, variant = 'dark' } = Astro.props;
+
+const siteUrl = 'https://epicentre-seminaires.fr';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: items.map((item, idx) => ({
+    '@type': 'ListItem',
+    position: idx + 1,
+    name: item.name,
+    ...(item.url && { item: item.url.startsWith('http') ? item.url : `${siteUrl}${item.url}` }),
+  })),
+};
+
+const txt = variant === 'dark' ? 'text-bone/55 hover:text-bone' : 'text-ink/55 hover:text-ink';
+const sep = variant === 'dark' ? 'text-bone/25' : 'text-ink/25';
+const current = variant === 'dark' ? 'text-bone/90' : 'text-ink/90';
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+<nav aria-label="Fil d'ariane" class="text-xs uppercase tracking-[0.18em]">
+  <ol class="flex flex-wrap items-center gap-x-2 gap-y-1">
+    {items.map((item, idx) => (
+      <li class="flex items-center gap-2">
+        {idx > 0 && <span aria-hidden="true" class={sep}>/</span>}
+        {item.url && idx < items.length - 1 ? (
+          <a href={item.url} class={`${txt} transition-colors`}>{item.name}</a>
+        ) : (
+          <span class={current}>{item.name}</span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>

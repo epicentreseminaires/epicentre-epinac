@@ -1,0 +1,114 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '@/layouts/Base.astro';
+import Prose from '@/components/Prose.astro';
+import PageFaq from '@/components/PageFaq.astro';
+import NearbyLinks from '@/components/NearbyLinks.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+
+export async function getStaticPaths() {
+  const lieux = await getCollection('lieux', (l) => l.data.zone === 'epinac');
+  return lieux.map((lieu) => ({
+    params: { slug: lieu.id },
+    props: { lieu },
+  }));
+}
+
+const { lieu } = Astro.props;
+const { Content } = await render(lieu);
+
+const siteUrl = 'https://epinac.epicentre-seminaires.fr';
+const pageUrl = `${siteUrl}/${lieu.id}/`;
+
+const breadcrumb = [
+  { name: 'Accueil', url: '/' },
+  { name: lieu.data.ville },
+];
+
+const faqJsonLd = lieu.data.faq && lieu.data.faq.length > 0
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: lieu.data.faq.map((it) => ({
+        '@type': 'Question',
+        name: it.q,
+        acceptedAnswer: { '@type': 'Answer', text: it.a },
+      })),
+    }
+  : null;
+
+const localBusinessJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'EventVenue',
+  '@id': `${pageUrl}#venue`,
+  name: `Domaine d'Épinac (accès depuis ${lieu.data.ville})`,
+  description: lieu.data.description,
+  url: pageUrl,
+  image: lieu.data.cover,
+  areaServed: { '@type': 'City', name: lieu.data.ville },
+  ...(lieu.data.geo && {
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: lieu.data.geo.lat,
+      longitude: lieu.data.geo.lng,
+    },
+  }),
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Épinac',
+    postalCode: '71360',
+    addressRegion: 'Bourgogne-Franche-Comté',
+    addressCountry: 'FR',
+  },
+};
+---
+
+<Base title={`${lieu.data.title} | Domaine d'Épinac`} description={lieu.data.description} image={lieu.data.cover}>
+  <script type="application/ld+json" set:html={JSON.stringify(localBusinessJsonLd)} />
+  {faqJsonLd && <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />}
+
+  <article>
+    <section class="relative h-[55vh] min-h-[380px] overflow-hidden bg-epinac-deep">
+      <img src={lieu.data.cover} alt={lieu.data.title} class="absolute inset-0 w-full h-full object-cover opacity-55" />
+      <div class="absolute inset-0 bg-gradient-to-b from-epinac-deep/30 to-epinac-deep"></div>
+      <div class="relative z-10 h-full container-wide flex flex-col justify-end pb-16 text-bone">
+        <Breadcrumb items={breadcrumb} variant="dark" />
+        <h1 class="text-3xl md:text-5xl lg:text-6xl max-w-4xl leading-tight mt-6">
+          {lieu.data.title}
+        </h1>
+      </div>
+    </section>
+
+    <section class="py-20 md:py-28 bg-bone">
+      <div class="container-wide">
+        <Prose>
+          <Content />
+        </Prose>
+      </div>
+    </section>
+
+    {lieu.data.faq && lieu.data.faq.length > 0 && (
+      <PageFaq items={lieu.data.faq} heading={`Vos questions sur un séminaire à ${lieu.data.ville} ou Épinac.`} />
+    )}
+
+    <NearbyLinks
+      currentSlug={lieu.id}
+      villes={lieu.data.nearbyVilles}
+    />
+
+    <section class="bg-epinac text-bone py-24">
+      <div class="container-wide text-center max-w-3xl mx-auto">
+        <h2 class="text-3xl md:text-5xl leading-tight">
+          Visitons le domaine ensemble.
+        </h2>
+        <p class="mt-6 text-bone/70">
+          Une demi-journée sur place suffit pour imaginer votre séminaire.
+        </p>
+        <a href="/contact/" class="btn-bone mt-10 inline-flex">
+          Réserver une visite
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+  </article>
+</Base>

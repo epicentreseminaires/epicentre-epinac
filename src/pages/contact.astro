@@ -1,0 +1,76 @@
+---
+import Base from '@/layouts/Base.astro';
+import { FORMSUBMIT_ENDPOINT, SITE_URL } from '@/config';
+
+const title = "Contact : Domaine d'Épinac | Epicentre Séminaires";
+const description = "Contactez-nous pour visiter le domaine d'Épinac et organiser votre séminaire d'entreprise en Bourgogne. Demande de devis et visite sur place.";
+---
+
+<Base title={title} description={description}>
+  <section class="bg-epinac-deep text-bone py-24 md:py-32">
+    <div class="container-wide grid md:grid-cols-12 gap-10">
+      <div class="md:col-span-5">
+        <p class="eyebrow text-bone/60">Épinac · Bourgogne</p>
+        <h1 class="font-display text-4xl md:text-6xl mt-6 leading-tight">Réservez une visite du domaine.</h1>
+        <p class="mt-8 text-bone/70 leading-relaxed">
+          Dites-nous quelques mots de votre projet : gala, plénière, soirée d'entreprise ou réception privée. Nous revenons vers vous pour caler une visite et travailler ensemble votre dispositif sur-mesure.
+        </p>
+        <div class="mt-10 space-y-3 text-bone/80 text-sm">
+          <p><span class="text-bone/50">Email : </span><a href="mailto:contact@epicentre-seminaires.fr" class="hover:text-accent">contact@epicentre-seminaires.fr</a></p>
+          <p><span class="text-bone/50">Adresse : </span>Domaine d'Épinac, 71360 Épinac, Saône-et-Loire</p>
+        </div>
+      </div>
+
+      <div class="md:col-span-6 md:col-start-7 bg-bone text-ink p-8 md:p-12">
+        <form action={FORMSUBMIT_ENDPOINT} method="POST" class="space-y-6">
+          <input type="hidden" name="_subject" value="Nouvelle demande de visite - Domaine d'Épinac" />
+          <input type="hidden" name="_next" value={`${SITE_URL}/merci/`} />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="zone" value="Domaine d'Épinac" />
+          <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off" />
+          <div class="grid md:grid-cols-2 gap-4">
+            <label class="block">
+              <span class="eyebrow">Prénom</span>
+              <input type="text" name="firstname" required class="mt-2 w-full bg-transparent border-b border-ink/20 py-2 focus:outline-none focus:border-ink" />
+            </label>
+            <label class="block">
+              <span class="eyebrow">Nom</span>
+              <input type="text" name="lastname" required class="mt-2 w-full bg-transparent border-b border-ink/20 py-2 focus:outline-none focus:border-ink" />
+            </label>
+          </div>
+          <label class="block">
+            <span class="eyebrow">Entreprise</span>
+            <input type="text" name="company" class="mt-2 w-full bg-transparent border-b border-ink/20 py-2 focus:outline-none focus:border-ink" />
+          </label>
+          <label class="block">
+            <span class="eyebrow">Email</span>
+            <input type="email" name="email" required class="mt-2 w-full bg-transparent border-b border-ink/20 py-2 focus:outline-none focus:border-ink" />
+          </label>
+          <label class="block">
+            <span class="eyebrow">Téléphone</span>
+            <input type="tel" name="phone" class="mt-2 w-full bg-transparent border-b border-ink/20 py-2 focus:outline-none focus:border-ink" />
+          </label>
+          <label class="block">
+            <span class="eyebrow">Type d'événement</span>
+            <select name="type" class="mt-2 w-full bg-transparent border-b border-ink/20 py-2 focus:outline-none focus:border-ink">
+              <option>Journée d'entreprise plein air</option>
+              <option>Plénière sous chapiteau</option>
+              <option>Gala / dîner d'entreprise</option>
+              <option>Lancement de produit</option>
+              <option>Soirée privée / réception</option>
+              <option>Mariage</option>
+              <option>Autre</option>
+            </select>
+          </label>
+          <label class="block">
+            <span class="eyebrow">Votre projet en quelques mots</span>
+            <textarea name="message" rows="4" class="mt-2 w-full bg-transparent border-b border-ink/20 py-2 focus:outline-none focus:border-ink resize-none"></textarea>
+          </label>
+          <button type="submit" class="btn-primary w-full justify-center">Envoyer ma demande</button>
+          <p class="text-xs text-ink/40">En soumettant ce formulaire, vous acceptez d'être recontacté par Epicentre Séminaires.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</Base>

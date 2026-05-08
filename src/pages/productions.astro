@@ -1,0 +1,66 @@
+---
+import Base from '@/layouts/Base.astro';
+
+const title = "Productions au domaine d'Épinac | Epicentre Séminaires";
+const description = "Productions au domaine d'Épinac : plénières sous chapiteau cristal, galas, dîners scénographiés, lancements, dégustations.";
+
+const cover = 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=2400&q=85&auto=format&fit=crop';
+
+const productions = [
+  {
+    title: 'Plénière sous chapiteau cristal',
+    description: 'Le parc se transforme en salle de spectacle. Scène, captation multicam, son et lumière dignes d\'une grande scène, dans un écrin transparent ouvert sur la nature bourguignonne.',
+    img: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1600&q=85&auto=format&fit=crop',
+  },
+  {
+    title: 'Gala et dîner scénographié',
+    description: 'Tables rondes, mise en lumière, show ou intervention scénique entre les plats. La logique de gala XXL transposée à un cadre intime et exclusif.',
+    img: 'https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=1600&q=85&auto=format&fit=crop',
+  },
+  {
+    title: 'Lancement de produit & reveal',
+    description: 'Mise en scène du produit, dispositif scénique, captation, presse, soirée. L\'isolement du domaine devient un atout : votre annonce reste sous embargo jusqu\'au reveal.',
+    img: 'https://images.unsplash.com/photo-1559223607-a43c990c692c?w=1600&q=85&auto=format&fit=crop',
+  },
+  {
+    title: 'Dégustation de vin & terroir',
+    description: 'Bourgogne oblige : nous montons des dégustations de vin avec sommelier, en complément de votre séminaire. Un moment fort, ancré dans le territoire.',
+    img: 'https://images.unsplash.com/photo-1474722883778-792e7990302f?w=1600&q=85&auto=format&fit=crop',
+  },
+];
+---
+
+<Base title={title} description={description}>
+  <section class="relative h-[55vh] min-h-[380px] overflow-hidden bg-epinac-deep">
+    <img src={cover} alt="Production événementielle dans un domaine en Bourgogne" class="absolute inset-0 w-full h-full object-cover opacity-65" />
+    <div class="absolute inset-0 bg-gradient-to-b from-epinac-deep/30 to-epinac-deep"></div>
+    <div class="relative z-10 h-full container-wide flex flex-col justify-end pb-16 text-bone">
+      <p class="eyebrow text-bone/70 mb-4">Productions à Épinac</p>
+      <h1 class="font-display text-4xl md:text-6xl max-w-4xl">Ce que l'on monte au domaine.</h1>
+    </div>
+  </section>
+
+  <section class="py-24 bg-bone">
+    <div class="container-wide space-y-16 md:space-y-28">
+      {productions.map((p, i) => (
+        <article class={`grid md:grid-cols-12 gap-10 items-center ${i % 2 ? 'md:[&>*:first-child]:order-2' : ''}`}>
+          <div class="md:col-span-7 relative aspect-[16/10] overflow-hidden">
+            <img src={p.img} alt={p.title} class="absolute inset-0 w-full h-full object-cover" />
+          </div>
+          <div class="md:col-span-4 md:col-start-9 [.md\\:order-2~&]:md:col-start-1">
+            <p class="eyebrow">0{i + 1}</p>
+            <h2 class="font-display text-3xl md:text-4xl mt-4 leading-tight">{p.title}</h2>
+            <p class="mt-6 text-ink/70 leading-relaxed">{p.description}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="bg-epinac text-bone py-24">
+    <div class="container-wide text-center">
+      <h2 class="font-display text-4xl md:text-5xl">Un projet en tête pour le domaine ?</h2>
+      <a href="/contact/" class="btn-bone mt-10 inline-flex">Parlons-en</a>
+    </div>
+  </section>
+</Base>

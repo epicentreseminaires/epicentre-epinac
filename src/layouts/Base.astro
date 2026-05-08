@@ -1,0 +1,87 @@
+---
+import '@/styles/global.css';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+
+export interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  canonical?: string;
+  noindex?: boolean;
+  theme?: 'light' | 'dark';
+}
+
+const {
+  title,
+  description,
+  image = '/og-default.jpg',
+  canonical,
+  noindex = false,
+  theme = 'dark',
+} = Astro.props;
+
+const siteUrl = 'https://epinac.epicentre-seminaires.fr';
+const canonicalUrl = canonical ?? new URL(Astro.url.pathname, siteUrl).toString();
+const ogImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content="Domaine d'Épinac" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
+    <meta name="author" content="Domaine d'Épinac" />
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'EventVenue',
+      '@id': `${siteUrl}/#venue`,
+      name: "Domaine d'Épinac",
+      description: "Lieu d'événement plein air en Bourgogne sud, à Épinac. Galas, plénières sous chapiteau, soirées d'entreprise, réceptions privées.",
+      url: siteUrl,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: '8 rue Jean Bouverie',
+        addressLocality: 'Épinac',
+        postalCode: '71360',
+        addressRegion: 'Bourgogne-Franche-Comté',
+        addressCountry: 'FR',
+      },
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: 46.9883,
+        longitude: 4.5103,
+      },
+      areaServed: ['Bourgogne', 'Saône-et-Loire', 'Autun', 'Beaune', 'Le Creusot', 'Lyon', 'Genève', 'Paris', 'Dijon'],
+    })} />
+  </head>
+  <body data-theme={theme}>
+    <Header theme={theme} />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
