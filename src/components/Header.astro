@@ -8,11 +8,29 @@ export interface Props {
 }
 const { theme = 'dark', transparentTop = false } = Astro.props;
 
-// Navigation propre au domaine d'Épinac
+// Navigation propre au domaine d'Épinac. 'Le domaine' et 'Productions' ouvrent des mega-menus.
 const nav = [
-  { label: 'Le domaine', href: '/le-domaine/' },
-  { label: 'Productions', href: '/productions/' },
+  { label: 'Le domaine', href: '/le-domaine/', mega: 'domaine' as const },
+  { label: 'Productions', href: '/productions/', mega: 'productions' as const },
   { label: 'Contact', href: '/contact/' },
+];
+
+// Espaces visibles dans le mega 'Le domaine'
+const domaineSpaces = [
+  { label: 'Chapiteau cristal', desc: 'Plénière transparente, 300 pax', cover: 'https://enjoylife.b-cdn.net/Verrerie/halle.jpg' },
+  { label: 'Parc 9 000 m²', desc: 'Cocktail, gala, scène extérieure', cover: 'https://enjoylife.b-cdn.net/Verrerie/fresque.jpg' },
+  { label: 'Chambres sur place', desc: 'Hébergement résidentiel', cover: 'https://enjoylife.b-cdn.net/Verrerie/chambre1.png' },
+  { label: 'Orangerie & atelier vin', desc: 'Dégustation, petit comité', cover: 'https://enjoylife.b-cdn.net/Verrerie/orangerie.jpg' },
+];
+
+// Formats événementiels mis en avant
+const productionsFormats = [
+  { label: 'Plénière sous chapiteau', desc: 'Scène, son, lumière, captation' },
+  { label: 'Gala et dîner d\'entreprise', desc: 'Tables rondes en plein air' },
+  { label: 'Soirée d\'entreprise', desc: 'Cocktail, animation, concert privé' },
+  { label: 'Mariage premium', desc: 'Cérémonie, cocktail, dîner gala' },
+  { label: 'Lancement produit plein air', desc: 'Reveal scénographié en parc' },
+  { label: 'Séminaire résidentiel', desc: 'Travail + hébergement sur place' },
 ];
 
 const ctaHref = '/contact/';
@@ -60,7 +78,18 @@ const burgerColor = isLight ? 'text-ink' : 'text-bone';
 
     <nav class={`hidden lg:flex items-center gap-7 text-sm ${textBase} font-medium`}>
       {nav.map((item) => (
-        <a href={item.href} class={`${textHover} transition-colors`}>{item.label}</a>
+        item.mega ? (
+          <div class="nav-item-mega" data-mega={item.mega}>
+            <a href={item.href} class={`nav-mega-link ${textHover} transition-colors flex items-center gap-1`}>
+              {item.label}
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" class="opacity-60 transition-transform">
+                <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </a>
+          </div>
+        ) : (
+          <a href={item.href} class={`${textHover} transition-colors`}>{item.label}</a>
+        )
       ))}
     </nav>
 
@@ -84,6 +113,83 @@ const burgerColor = isLight ? 'text-ink' : 'text-bone';
           <line x1="3" y1="17" x2="21" y2="17" />
         </svg>
       </button>
+    </div>
+  </div>
+
+  <!-- MEGA-MENU PANELS (desktop) -->
+  <div class="mega-panel" data-mega-target="domaine" aria-hidden="true">
+    <div class="container-wide py-8 md:py-10">
+      <div class="flex items-end justify-between gap-6 mb-6 md:mb-8">
+        <div>
+          <p class="eyebrow text-ink/55">Le domaine</p>
+          <h3 class="font-display text-xl md:text-2xl font-semibold text-ink mt-2 leading-tight">Quatre espaces, un parc, une liberté totale.</h3>
+        </div>
+        <a href="/le-domaine/" class="text-sm text-accent font-semibold flex items-center gap-1.5 hover:gap-2.5 transition-all whitespace-nowrap">
+          Découvrir le domaine
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+            <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {domaineSpaces.map((s) => (
+          <a href="/le-domaine/" class="group flex flex-col gap-2.5">
+            <div class="relative aspect-[4/3] overflow-hidden rounded-sm bg-bone-soft">
+              <img src={s.cover} alt="" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.05]" />
+            </div>
+            <div>
+              <p class="text-sm font-semibold text-ink leading-tight group-hover:text-accent transition-colors">{s.label}</p>
+              <p class="text-xs text-ink/55 mt-1 leading-snug">{s.desc}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="mega-panel" data-mega-target="productions" aria-hidden="true">
+    <div class="container-wide py-8 md:py-10">
+      <div class="grid lg:grid-cols-12 gap-8 lg:gap-12">
+        <div class="lg:col-span-8">
+          <p class="eyebrow text-ink/55 mb-5">Productions au domaine</p>
+          <div class="grid grid-cols-2 gap-x-6 gap-y-2">
+            {productionsFormats.map((f) => (
+              <a href="/productions/" class="group flex items-start gap-3 py-2 pr-2 -mx-2 px-2 rounded-sm hover:bg-bone-soft transition-colors">
+                <span class="shrink-0 inline-flex items-center justify-center w-2 h-2 rounded-full bg-accent mt-2"></span>
+                <div class="min-w-0">
+                  <p class="text-sm font-semibold text-ink leading-tight group-hover:text-accent transition-colors">{f.label}</p>
+                  <p class="text-xs text-ink/55 mt-0.5 leading-snug">{f.desc}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+          <div class="mt-7 pt-5 border-t border-ink/10 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
+            <a href="/productions/" class="text-accent font-semibold flex items-center gap-1.5 hover:gap-2.5 transition-all">
+              Voir toutes les productions
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </a>
+            <a href="https://epicentre-seminaires.fr/process/" class="text-ink/65 hover:text-accent transition-colors">Notre méthode 3D</a>
+          </div>
+        </div>
+        <div class="lg:col-span-4">
+          <a href="/le-domaine/" class="group block relative overflow-hidden rounded-sm aspect-[4/5] cinema-grade">
+            <img src="https://enjoylife.b-cdn.net/Verrerie/hero.jpg" alt="" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent z-[3]"></div>
+            <div class="absolute bottom-5 left-5 right-5 z-[4] text-bone">
+              <p class="text-[0.6rem] uppercase tracking-[0.22em] text-bone/70 font-medium">9 000 m² privatisés</p>
+              <p class="mt-2 text-base font-semibold leading-tight">Le terrain de jeu se construit avec vous.</p>
+              <span class="mt-3 inline-flex items-center gap-1.5 text-xs text-bone/85 group-hover:gap-2.5 transition-all">
+                Découvrir le domaine
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </div>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -187,6 +293,51 @@ const burgerColor = isLight ? 'text-ink' : 'text-bone';
   };
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+
+  // Mega-menu : hover sur nav-item ouvre le panel correspondant
+  const navItems = document.querySelectorAll<HTMLElement>('.nav-item-mega');
+  const panels = document.querySelectorAll<HTMLElement>('.mega-panel');
+  let closeTimer: number | null = null;
+
+  const openPanel = (key: string) => {
+    if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
+    panels.forEach((p) => {
+      const isTarget = p.dataset.megaTarget === key;
+      p.classList.toggle('mega-panel--open', isTarget);
+      p.setAttribute('aria-hidden', isTarget ? 'false' : 'true');
+    });
+    navItems.forEach((it) => {
+      it.classList.toggle('nav-item-mega--active', it.dataset.mega === key);
+    });
+  };
+  const closeAll = () => {
+    panels.forEach((p) => {
+      p.classList.remove('mega-panel--open');
+      p.setAttribute('aria-hidden', 'true');
+    });
+    navItems.forEach((it) => it.classList.remove('nav-item-mega--active'));
+  };
+  const scheduleClose = () => {
+    if (closeTimer) clearTimeout(closeTimer);
+    closeTimer = window.setTimeout(closeAll, 150);
+  };
+
+  navItems.forEach((it) => {
+    const key = it.dataset.mega;
+    if (!key) return;
+    it.addEventListener('mouseenter', () => openPanel(key));
+    it.addEventListener('mouseleave', scheduleClose);
+    it.addEventListener('focusin', () => openPanel(key));
+  });
+  panels.forEach((p) => {
+    p.addEventListener('mouseenter', () => {
+      if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
+    });
+    p.addEventListener('mouseleave', scheduleClose);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeAll();
+  });
 </script>
 
 <style>
@@ -216,5 +367,43 @@ const burgerColor = isLight ? 'text-ink' : 'text-bone';
   }
   @media (prefers-reduced-motion: reduce) {
     .header-row, .header-logo, #siteHeader .header-cta { transition: none; }
+  }
+
+  /* ============== MEGA-MENU ============== */
+  .nav-item-mega {
+    position: static;
+    cursor: pointer;
+  }
+  .nav-item-mega .nav-mega-link svg {
+    transition: transform 0.2s ease;
+  }
+  .nav-item-mega--active .nav-mega-link svg {
+    transform: rotate(180deg);
+  }
+  .mega-panel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #F5F1EA;
+    border-top: 1px solid rgba(11, 11, 15, 0.08);
+    box-shadow: 0 16px 40px -20px rgba(11, 11, 15, 0.18);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1), transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.25s;
+    pointer-events: none;
+    z-index: 49;
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+  }
+  .mega-panel--open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mega-panel { transition: none; }
   }
 </style>
