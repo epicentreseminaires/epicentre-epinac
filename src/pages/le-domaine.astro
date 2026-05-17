@@ -15,7 +15,7 @@ const photos = [
 ---
 
 <Base title={title} description={description}>
-  <section class="relative h-[60vh] min-h-[420px] overflow-hidden bg-forest-gradient cinema-grade">
+  <section class="relative h-[60vh] min-h-[420px] overflow-hidden bg-ink cinema-grade">
     <img src={photos[0]} alt="Domaine d'Épinac - vue d'ensemble" class="absolute inset-0 w-full h-full object-cover opacity-70" />
     <div class="absolute inset-0 bg-gradient-to-b from-forest-deep/30 to-forest-deep"></div>
     <div class="relative z-10 h-full container-wide flex flex-col justify-end pb-16 text-bone">
@@ -78,10 +78,18 @@ const photos = [
     </div>
   </section>
 
-  <section class="bg-forest-gradient text-bone py-24">
-    <div class="container-wide text-center">
-      <h2 class="font-display text-4xl md:text-5xl">Envie d'imaginer votre événement ici ?</h2>
-      <a href="/contact/" class="btn-bone mt-10 inline-flex">Demander une visite</a>
+  <section class="bg-bone py-20 md:py-28 border-t border-ink/10">
+    <div class="container-wide">
+      <div class="bg-bone-soft rounded-3xl p-8 md:p-14 lg:p-20 max-w-5xl mx-auto text-center">
+        <p class="eyebrow text-ink/55">Prochaine étape</p>
+        <h2 class="font-display text-3xl md:text-5xl mt-5 leading-tight text-ink">
+          Envie d'imaginer votre événement <span class="text-gradient">ici ?</span>
+        </h2>
+        <a href="/contact/" class="btn-accent mt-10 inline-flex">
+          Demander une visite
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
     </div>
   </section>
 </Base>

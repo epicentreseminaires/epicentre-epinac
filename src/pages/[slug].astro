@@ -68,7 +68,7 @@ const localBusinessJsonLd = {
   {faqJsonLd && <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />}
 
   <article>
-    <section class="relative h-[55vh] min-h-[380px] overflow-hidden bg-forest-gradient">
+    <section class="relative h-[55vh] min-h-[380px] overflow-hidden bg-ink cinema-grade">
       <img src={lieu.data.cover} alt={lieu.data.title} class="absolute inset-0 w-full h-full object-cover opacity-55" />
       <div class="absolute inset-0 bg-gradient-to-b from-forest-deep/30 to-forest-deep"></div>
       <div class="relative z-10 h-full container-wide flex flex-col justify-end pb-16 text-bone">
@@ -96,18 +96,21 @@ const localBusinessJsonLd = {
       villes={lieu.data.nearbyVilles}
     />
 
-    <section class="bg-forest-gradient text-bone py-24">
-      <div class="container-wide text-center max-w-3xl mx-auto">
-        <h2 class="text-3xl md:text-5xl leading-tight">
-          Visitons le domaine ensemble.
-        </h2>
-        <p class="mt-6 text-bone/70">
-          Une demi-journée sur place suffit pour imaginer votre séminaire.
-        </p>
-        <a href="/contact/" class="btn-bone mt-10 inline-flex">
-          Réserver une visite
-          <span aria-hidden="true">→</span>
-        </a>
+    <section class="bg-bone py-20 md:py-28 border-t border-ink/10">
+      <div class="container-wide">
+        <div class="bg-bone-soft rounded-3xl p-8 md:p-14 lg:p-20 max-w-5xl mx-auto text-center">
+          <p class="eyebrow text-ink/55">Visite du domaine</p>
+          <h2 class="font-display text-3xl md:text-5xl mt-5 leading-tight text-ink">
+            Visitons le domaine <span class="text-gradient">ensemble.</span>
+          </h2>
+          <p class="mt-6 text-base md:text-lg text-ink/65 max-w-xl mx-auto leading-relaxed">
+            Une demi-journée sur place suffit pour imaginer votre séminaire.
+          </p>
+          <a href="/contact/" class="btn-accent mt-10 inline-flex">
+            Réserver une visite
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
       </div>
     </section>
   </article>
