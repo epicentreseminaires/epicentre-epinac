@@ -10,6 +10,7 @@ export interface Props {
   canonical?: string;
   noindex?: boolean;
   theme?: 'light' | 'dark';
+  transparentTop?: boolean;
 }
 
 const {
@@ -19,6 +20,7 @@ const {
   canonical,
   noindex = false,
   theme = 'dark',
+  transparentTop = false,
 } = Astro.props;
 
 const siteUrl = 'https://epinac.epicentre-seminaires.fr';
@@ -78,7 +80,7 @@ const ogImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
     })} />
   </head>
   <body data-theme={theme}>
-    <Header theme={theme} />
+    <Header theme={theme} transparentTop={transparentTop} />
     <main>
       <slot />
     </main>

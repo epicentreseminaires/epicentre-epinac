@@ -40,10 +40,19 @@
     letter-spacing: -0.005em;
   }
   .btn-primary {
-    @apply btn bg-ink text-bone hover:bg-ink-soft;
+    @apply btn text-bone;
+    background: linear-gradient(135deg, #003707 0%, #00491b 100%);
+  }
+  .btn-primary:hover {
+    filter: brightness(1.15);
   }
   .btn-outline {
-    @apply btn border border-ink text-ink hover:bg-ink hover:text-bone;
+    @apply btn border border-forest text-forest-deep hover:text-bone;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  .btn-outline:hover {
+    background: linear-gradient(135deg, #003707 0%, #00491b 100%);
+    border-color: transparent;
   }
   .btn-bone {
     @apply btn bg-bone text-ink hover:bg-bone-soft;
@@ -69,5 +78,144 @@
     @apply text-5xl md:text-7xl font-semibold;
     letter-spacing: -0.04em;
     line-height: 0.95;
+  }
+
+  /* Design tokens — typographie cohérente */
+  .h1-hero {
+    @apply font-display font-semibold text-ink;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    letter-spacing: -0.035em;
+    line-height: 1.02;
+  }
+  .h1-hero-lg {
+    @apply font-display font-semibold text-ink;
+    font-size: clamp(2.75rem, 7vw, 5rem);
+    letter-spacing: -0.04em;
+    line-height: 0.98;
+  }
+  .h1-hero-xl {
+    @apply font-display font-semibold text-ink;
+    font-size: clamp(2.75rem, 8vw, 5.5rem);
+    letter-spacing: -0.045em;
+    line-height: 0.94;
+  }
+  .h2-section {
+    @apply font-display font-semibold text-ink;
+    font-size: clamp(1.875rem, 4vw, 3rem);
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+  }
+  .h2-section-sm {
+    @apply font-display font-semibold text-ink;
+    font-size: clamp(1.625rem, 3vw, 2.25rem);
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+  }
+  .h2-hero {
+    @apply font-display font-semibold text-ink;
+    font-size: clamp(2.25rem, 5vw, 3.75rem);
+    letter-spacing: -0.035em;
+    line-height: 1;
+  }
+  .h2-cta {
+    @apply font-display font-semibold text-ink;
+    font-size: clamp(2.25rem, 5.5vw, 4.5rem);
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+  .h3-card {
+    @apply font-display font-semibold text-ink;
+    @apply text-lg md:text-xl;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+  }
+  .lead {
+    @apply text-lg md:text-xl text-ink/70 leading-relaxed;
+  }
+  .body-md {
+    @apply text-base md:text-lg text-ink/70 leading-relaxed;
+  }
+
+  /* Override critique : les classes typo (.h1-hero, .h2-section, etc) ont text-ink hard-coded.
+     Sur fond vert, on force text-bone pour éviter du noir illisible. */
+  .bg-forest-gradient .h1-hero,
+  .bg-forest-gradient .h1-hero-lg,
+  .bg-forest-gradient .h1-hero-xl,
+  .bg-forest-gradient .h2-section,
+  .bg-forest-gradient .h2-section-sm,
+  .bg-forest-gradient .h2-hero,
+  .bg-forest-gradient .h2-cta,
+  .bg-forest-gradient .h3-card,
+  .bg-forest-gradient .lead,
+  .bg-forest-gradient .body-md,
+  .bg-forest-deep .h1-hero,
+  .bg-forest-deep .h1-hero-lg,
+  .bg-forest-deep .h1-hero-xl,
+  .bg-forest-deep .h2-section,
+  .bg-forest-deep .h2-section-sm,
+  .bg-forest-deep .h2-hero,
+  .bg-forest-deep .h2-cta,
+  .bg-forest-deep .h3-card,
+  .bg-forest-deep .lead,
+  .bg-forest-deep .body-md {
+    color: #F5F1EA;
+  }
+
+  /* Texte en dégradé brand : applique le gradient #003707 → #00491b sur le texte. */
+  .text-gradient {
+    background: linear-gradient(135deg, #003707 0%, #00491b 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  /* Variante pour fond sombre vert : dégradé crème → bone-soft, lisible sur forest */
+  .text-gradient-bone {
+    background: linear-gradient(135deg, #FFFFFF 0%, #EFEAE0 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Cinematic grade : grain film + vignette + léger color shift, à appliquer sur les heros image AI pour les rendre photo-réalistes */
+  .cinema-grade {
+    position: relative;
+    isolation: isolate;
+  }
+  .cinema-grade > img {
+    filter: contrast(1.06) saturate(1.07) brightness(0.96);
+  }
+  /* Grain film via SVG fractal noise, plus marqué pour casser le côté lisse AI */
+  .cinema-grade::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.65 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 280px 280px;
+    opacity: 0.22;
+    mix-blend-mode: overlay;
+  }
+  /* Vignette douce : bords assombris pour focaliser le regard */
+  .cinema-grade::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.35) 100%);
+  }
+
+  /* Design tokens — rythme vertical des sections */
+  .section-y {
+    @apply py-20 md:py-28;
+  }
+  .section-y-lg {
+    @apply py-24 md:py-32;
+  }
+  .section-y-sm {
+    @apply py-16 md:py-20;
   }
 }

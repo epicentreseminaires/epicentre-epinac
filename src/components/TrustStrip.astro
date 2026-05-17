@@ -4,7 +4,7 @@ export interface Props {
 }
 const { variant = 'light' } = Astro.props;
 const txt = variant === 'dark' ? 'text-bone/80' : 'text-ink/70';
-const bg = variant === 'dark' ? 'bg-ink-soft border-bone/10' : 'bg-bone-soft border-ink/10';
+const bg = variant === 'dark' ? 'bg-forest-gradient border-bone/10' : 'bg-bone-soft border-ink/10';
 
 const items = [
   { v: 'Pilotage direct', s: 'pas d\'intermédiaire commercial' },

@@ -68,9 +68,9 @@ const localBusinessJsonLd = {
   {faqJsonLd && <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />}
 
   <article>
-    <section class="relative h-[55vh] min-h-[380px] overflow-hidden bg-epinac-deep">
+    <section class="relative h-[55vh] min-h-[380px] overflow-hidden bg-forest-gradient">
       <img src={lieu.data.cover} alt={lieu.data.title} class="absolute inset-0 w-full h-full object-cover opacity-55" />
-      <div class="absolute inset-0 bg-gradient-to-b from-epinac-deep/30 to-epinac-deep"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-forest-deep/30 to-forest-deep"></div>
       <div class="relative z-10 h-full container-wide flex flex-col justify-end pb-16 text-bone">
         <Breadcrumb items={breadcrumb} variant="dark" />
         <h1 class="text-3xl md:text-5xl lg:text-6xl max-w-4xl leading-tight mt-6">
@@ -96,7 +96,7 @@ const localBusinessJsonLd = {
       villes={lieu.data.nearbyVilles}
     />
 
-    <section class="bg-epinac text-bone py-24">
+    <section class="bg-forest-gradient text-bone py-24">
       <div class="container-wide text-center max-w-3xl mx-auto">
         <h2 class="text-3xl md:text-5xl leading-tight">
           Visitons le domaine ensemble.
