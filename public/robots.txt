@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://epicentre-seminaires.fr/sitemap-index.xml
+Sitemap: https://epinac.epicentre-seminaires.fr/sitemap-index.xml
